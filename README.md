@@ -46,7 +46,7 @@ Foi utilizado neste projeto as ferramentas:
 
 ## 📄 Licença
 
-Este projeto está sob a licença (MIT License) - veja o arquivo [LICENSE.md](https://github.com/usuario/projeto/licenca) para detalhes.
+Este projeto está sob a licença (MIT License) - veja o arquivo [LICENSE.md](https://github.com/renatojfsantos/Teste_Tecnico-Dev-Mobile-Renato_Jose_Ferreira_Dos_Santos/blob/main/LICENSE) para detalhes.
 
 
 ---
