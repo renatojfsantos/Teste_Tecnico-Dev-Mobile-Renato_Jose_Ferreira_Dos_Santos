@@ -1,21 +1,21 @@
 import React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 
-import SignIn from '../views/SingIn';
-import SignUp from '../views/SingUp';
+import Categories from '~/views/Categories';
+import Questions from '~/views/Questions';
 
-const Auth = createStackNavigator();
+const App = createStackNavigator();
 
 const AuthRoutes: React.FC = () => (
-  <Auth.Navigator
+  <App.Navigator
     screenOptions={{
       headerShown: false,
       cardStyle: { backgroundColor: '#312e38' },
     }}
   >
-    <Auth.Screen name="SignIn" component={SignIn} />
-    <Auth.Screen name="SingUp" component={SignUp} />
-  </Auth.Navigator>
+    <App.Screen name="Categories" component={Categories} />
+    <App.Screen name="Questions" component={Questions} />
+  </App.Navigator>
 );
 
 export default AuthRoutes;
