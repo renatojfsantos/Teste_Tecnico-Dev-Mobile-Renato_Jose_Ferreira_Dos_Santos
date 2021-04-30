@@ -2,7 +2,7 @@ import styled from 'styled-components/native';
 import palette from '~/theme/palette';
 
 export const Container = styled.View`
-  height: 86px;
+  height: 60px;
   background-color: ${palette.primary};
   flex-direction: row;
   padding: 0 16px;

@@ -15,14 +15,18 @@ export const Container = styled(Pressable).attrs((props: ButtonStyle) => ({
   },
 }))<ButtonStyle>`
   height: 56px;
+  margin: 8px 30px;
   padding: 0 16px;
-  border-radius: 4px;
+  border-radius: 8px;
   flex-direction: row;
   align-items: center;
   justify-content: center;
+  border: 2px ${palette.primary};
 `;
 
-export const Title = styled.Text.attrs({ size: 16 })<ButtonStyle>`
-  color: ${props => (props.textColor ? props.textColor : palette.white)};
+export const Title = styled.Text.attrs({ size: 36 })<ButtonStyle>`
+  color: ${props => (props.textColor ? props.textColor : palette.primary)};
   margin: 0 8px;
+  color: ${palette.primary};
+  font-size: 16px;
 `;

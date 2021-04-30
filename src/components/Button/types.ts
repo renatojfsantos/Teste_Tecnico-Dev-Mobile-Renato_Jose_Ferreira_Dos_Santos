@@ -6,6 +6,6 @@ export interface ButtonStyle {
 }
 
 export interface ButtonProps extends ButtonStyle, TouchableOpacityProps {
-  title: string;
+  title?: string;
   handleClick: () => void;
 }
