@@ -22,7 +22,7 @@ const Questions: React.FC = () => {
             <MenuCard
               key={renderList}
               title={renderList.name}
-              cardColor={palette.sucess}
+              cardColor={palette.white}
               callback={() => navigation.goBack()}
             />
           ))}
