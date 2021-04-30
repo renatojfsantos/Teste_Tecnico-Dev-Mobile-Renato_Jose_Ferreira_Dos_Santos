@@ -23,7 +23,8 @@ export const AppProvider: React.FC<IAppProviderProps> = (
     try {
       setLoad(true);
       const response = await getCategories();
-      setCategories(response);
+      const categoriesResult = response.trivia_categories;
+      setCategories(categoriesResult);
       setLoad(false);
     } catch (error) {
       console.log('error', error);

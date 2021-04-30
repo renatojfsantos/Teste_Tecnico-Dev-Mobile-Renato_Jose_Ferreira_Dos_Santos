@@ -2,8 +2,9 @@
 export const getCategories = async () => {
   try {
     const result = await fetch('https://opentdb.com/api_category.php');
-    return result.json;
+    return await result.json();
   } catch (error) {
     console.log('error', error);
+    return [];
   }
 };
