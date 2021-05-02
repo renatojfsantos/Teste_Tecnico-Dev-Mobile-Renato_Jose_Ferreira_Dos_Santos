@@ -29,4 +29,5 @@ export const Title = styled.Text.attrs({ size: 36 })<ButtonStyle>`
   margin: 0 8px;
   color: ${palette.primary};
   font-size: 16px;
+  text-align: center;
 `;
