@@ -5,8 +5,10 @@ import React, {
   useEffect,
   useState,
 } from 'react';
+import Category from '~/models/categoryModel';
+import Question, { DifficultyType } from '~/models/questionModel';
 import { getCategories } from '~/service/apiService';
-import { Category, IAppContext, IAppProviderProps } from './types';
+import { IAppContext, IAppProviderProps } from './types';
 
 export const AppContext = createContext<IAppContext>({} as IAppContext);
 
@@ -18,6 +20,8 @@ export const AppProvider: React.FC<IAppProviderProps> = (
   const [categories, setCategories] = useState<Category[]>([]);
   const [selectedCategoryId, setSelectedCategoryId] = useState<number>(0);
   const [load, setLoad] = useState<boolean>(false);
+  const [question, setQuestion] = useState<Question | null>(null);
+  const [difficulty, setDifficulty] = useState<DifficultyType>('easy');
 
   const loadCategories = useCallback(async () => {
     try {
@@ -43,10 +47,14 @@ export const AppProvider: React.FC<IAppProviderProps> = (
           categories,
           selectedCategoryId,
           load,
+          question,
+          difficulty,
         },
         handle: {
           setSelectedCategoryId,
           setLoad,
+          setQuestion,
+          setDifficulty,
         },
       }}
     >
