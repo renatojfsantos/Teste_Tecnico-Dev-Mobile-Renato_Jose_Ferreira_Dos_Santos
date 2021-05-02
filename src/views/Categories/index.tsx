@@ -1,44 +1,39 @@
 import React from 'react';
+import { FlatList } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-import { View, Text } from 'react-native';
-import Header from '~/components/Header';
 import { useApp } from '~/contexts/App';
-import { Category as CategoryTypes } from '~/contexts/App/types';
 
-import { Container } from './styles';
+import Header from '~/components/Header';
 import Button from '~/components/Button';
 import palette from '~/theme/palette';
+
+import { Container } from './styles';
 
 const Categories: React.FC = () => {
   const { state, handle } = useApp();
   const navigation = useNavigation();
 
-  const renderList = (category: CategoryTypes) => {
-    return <Text key={category.id}>{category.name}</Text>;
+  const handleGoQuestions = (categoryId: number) => {
+    handle.setSelectedCategoryId(categoryId);
+    navigation.navigate('Questions');
   };
 
   return (
     <Container>
-      <Header title="Dev Mobile" />
-      <>
-        <View>{state.categories.map(renderList)}</View>
-        <Button
-          style={{ backgroundColor: palette.whiteTransparent }}
-          title="Navegação"
-          handleClick={() => {
-            navigation.navigate('Questions');
-          }}
-        />
-      </>
+      <FlatList
+        ListHeaderComponent={<Header title="Dev Mobile" />}
+        keyExtractor={item => String(item.id)}
+        data={state.categories}
+        renderItem={({ item }) => (
+          <Button
+            backgroundColor={palette.white}
+            handleClick={() => handleGoQuestions(item.id)}
+            title={item.name}
+          />
+        )}
+      />
     </Container>
   );
-
-  // return (
-  //   <View>
-  //     <Text>{state.selectedCategoryId}</Text>
-  //     {state.load ? <Text>'loading....'</Text> : state.categories.map(renderList)}
-  //   </View>
-  // );
 };
 
 export default Categories;
