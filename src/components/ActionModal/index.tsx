@@ -5,7 +5,7 @@ import { ActionModalProps } from './types';
 
 const ActionModal: React.FC<ActionModalProps> = props => {
   // eslint-disable-next-line react/prop-types
-  const { title, textColor, onPress, onLongPress } = props;
+  const { title, textColor, onPress, onLongPress, children } = props;
 
   return (
     <Pressable
@@ -18,6 +18,7 @@ const ActionModal: React.FC<ActionModalProps> = props => {
       style={{ height: 56, paddingHorizontal: 16, justifyContent: 'center' }}
     >
       <Text style={{ fontSize: 19, backgroundColor: textColor }}>{title}</Text>
+      {children}
     </Pressable>
   );
 };
