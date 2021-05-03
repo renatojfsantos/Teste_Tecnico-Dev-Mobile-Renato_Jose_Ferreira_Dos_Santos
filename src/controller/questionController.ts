@@ -15,7 +15,7 @@ export const getQuestionsController = async (
         difficulty: result.difficulty,
         question: result.question,
         correctAnswer: result.correct_answer,
-        incorrectAnswers: result.incorrect_answer,
+        incorrectAnswers: result.incorrect_answers,
       };
       return question;
     }
