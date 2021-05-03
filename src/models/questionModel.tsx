@@ -9,10 +9,26 @@ export default interface Question {
 
 export type DifficultyType = 'easy' | 'medium' | 'hard';
 
-export interface HistoryAnswers {
-  easy: CounterAnswers;
-  medium: CounterAnswers;
-  hard: CounterAnswers;
+export class HistoryAnswers {
+  easy: CounterAnswers = { correct: 0, incorrect: 0 };
+
+  medium: CounterAnswers = { correct: 0, incorrect: 0 };
+
+  hard: CounterAnswers = { correct: 0, incorrect: 0 };
+
+  constructor(params?: Partial<HistoryAnswers>) {
+    if (params) {
+      Object.assign(this, params);
+    }
+  }
+
+  public getCorrectsCount() {
+    return this.easy.correct + this.medium.correct + this.hard.correct;
+  }
+
+  public getIncorrectsCount() {
+    return this.easy.incorrect + this.medium.incorrect + this.hard.incorrect;
+  }
 }
 
 export interface CounterAnswers {
