@@ -7,7 +7,7 @@ import Header from '~/components/Header';
 import Button from '~/components/Button';
 import palette from '~/theme/palette';
 
-import { Container } from './styles';
+import { Container, ContainerText } from './styles';
 
 const Categories: React.FC = () => {
   const { state, handle } = useApp();
@@ -20,8 +20,9 @@ const Categories: React.FC = () => {
 
   return (
     <Container>
+      <Header title="Dev Mobile" />
+      <ContainerText>Categorias</ContainerText>
       <FlatList
-        ListHeaderComponent={<Header title="Dev Mobile" />}
         keyExtractor={item => String(item.id)}
         data={state.categories}
         renderItem={({ item }) => (

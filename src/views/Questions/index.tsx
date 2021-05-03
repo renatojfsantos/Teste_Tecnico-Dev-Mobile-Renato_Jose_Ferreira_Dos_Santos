@@ -1,11 +1,7 @@
-import React, { Children, useCallback, useEffect, useState } from 'react';
-import { View, ScrollView, FlatList } from 'react-native';
+import React, { useCallback, useEffect, useState } from 'react';
+import { View, FlatList } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { useApp } from '~/contexts/App';
-
-import Button from '~/components/Button';
-import Header from '~/components/Header';
-import MenuCard from '~/components/MenuCard';
 
 import { getQuestionsController } from '~/controller/questionController';
 import { shuffleAnswerController } from '~/controller/shuffleAnswerController';
@@ -15,10 +11,19 @@ import Question, {
   HistoryAnswers,
 } from '~/models/questionModel';
 
+import Button from '~/components/Button';
+import Header from '~/components/Header';
+import MenuCard from '~/components/MenuCard';
 import palette from '~/theme/palette';
-import { Container } from './styles';
-import ActionModal from '~/components/ActionModal';
-import Text from '~/components/Text';
+
+import {
+  Container,
+  ContainerText,
+  ContainerDetails,
+  ContainerResult,
+  ContainerHeader,
+  ContainerHeaderText,
+} from './styles';
 
 const Questions: React.FC = () => {
   const { state, handle } = useApp();
@@ -61,9 +66,6 @@ const Questions: React.FC = () => {
     setSelectAnswer(answer);
   };
 
-  // const showAlertHistory =() => {
-  // }
-
   const handleSubmit = () => {
     if (currentQuestion && totalQuestion <= 9) {
       const isCorrect = selectAnswer === currentQuestion.correctAnswer;
@@ -101,9 +103,17 @@ const Questions: React.FC = () => {
 
   const renderMenu = () => {
     return (
-      <View>
+      <>
+        <ContainerHeader>
+          <ContainerHeaderText>
+            Questão {totalQuestion === 0 ? totalQuestion + 1 : totalQuestion}
+          </ContainerHeaderText>
+          <ContainerHeaderText>Nivel {state.difficulty}</ContainerHeaderText>
+        </ContainerHeader>
         <FlatList
-          ListHeaderComponent={<Text>{currentQuestion?.question}</Text>}
+          ListHeaderComponent={
+            <ContainerText>{currentQuestion?.question}</ContainerText>
+          }
           keyExtractor={item => item}
           data={answers}
           renderItem={({ item }) => (
@@ -115,7 +125,7 @@ const Questions: React.FC = () => {
             />
           )}
         />
-      </View>
+      </>
     );
   };
 
@@ -125,20 +135,21 @@ const Questions: React.FC = () => {
     if (totalQuestion > 9) {
       const sumCorrect = historyAnswers.getCorrectsCount();
       const sumIncorrect = historyAnswers.getIncorrectsCount();
-      title += `Você acertou ${sumCorrect} perguntas`;
-      title += `Você errou ${sumIncorrect} perguntas`;
-      containDetails += `Fácil: ${historyAnswers.easy.correct} acerto e ${historyAnswers.easy.incorrect} erro`;
-      containDetails += `Médio: ${historyAnswers.medium.correct} acerto e ${historyAnswers.medium.incorrect} erro`;
-      containDetails += `Difícil: ${historyAnswers.hard.correct} acerto e ${historyAnswers.hard.incorrect} erro`;
+      title += `${sumCorrect} respostas corretas.\n`;
+      title += `${sumIncorrect} respostas erradas.`;
+      containDetails += `Fácil: ${historyAnswers.easy.correct} acerto(s) e ${historyAnswers.easy.incorrect} erro(s)\n`;
+      containDetails += `Médio: ${historyAnswers.medium.correct} acerto(s) e ${historyAnswers.medium.incorrect} erro(s)\n`;
+      containDetails += `Difícil: ${historyAnswers.hard.correct} acerto(s) e ${historyAnswers.hard.incorrect} erro(s)`;
     } else if (currentQuestion?.correctAnswer === selectAnswer) {
       title = 'Você acertou!';
-      containDetails = 'Colocar icone depois!!!';
     } else {
       title = 'Você errou!';
-      containDetails = 'Colocar icone depois!!!';
     }
     return (
-      <ActionModal title={title} children={<Text>{containDetails}</Text>} />
+      <View>
+        <ContainerResult>{title}</ContainerResult>
+        <ContainerDetails>{containDetails}</ContainerDetails>
+      </View>
     );
   };
 
@@ -146,24 +157,22 @@ const Questions: React.FC = () => {
     <Container>
       <Header title="Dev Mobile" />
       <>
-        <View>
-          {renderMenu()}
-          {showModal && renderModal()}
-          {!!selectAnswer && (
-            <Button
-              style={{ backgroundColor: palette.whiteTransparent }}
-              title={showModal ? 'Avançar' : 'Responder'}
-              handleClick={() => {
-                if (showModal) {
-                  if (totalQuestion > 9) {
-                    navigation.goBack();
-                  }
-                  handleSubmit();
-                } else confirmAnswer();
-              }}
-            />
-          )}
-        </View>
+        {renderMenu()}
+        {showModal && renderModal()}
+        {!!selectAnswer && (
+          <Button
+            style={{ backgroundColor: palette.whiteTransparent }}
+            title={showModal ? 'Avançar' : 'Responder'}
+            handleClick={() => {
+              if (showModal) {
+                if (totalQuestion > 9) {
+                  navigation.goBack();
+                }
+                handleSubmit();
+              } else confirmAnswer();
+            }}
+          />
+        )}
       </>
     </Container>
   );
